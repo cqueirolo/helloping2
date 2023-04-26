@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloping2
+spec:
+  selector:
+    matchLabels:
+      app: helloping2
+  template:
+    metadata:
+      labels:
+        app: helloping2
+    spec:
+      containers:
+        - image: okteto.dev/helloping2:latest
+          name: helloping2
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloping2
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: helloping2
+      port: 8080
+  selector:
+    app: helloping2
