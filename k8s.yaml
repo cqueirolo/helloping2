@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: helloping2
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: helloping2
@@ -12,8 +13,10 @@ spec:
         app: helloping2
     spec:
       containers:
-        - image: okteto.dev/helloping2:latest
+        - image: cqueirolo/helloping2:latest
           name: helloping2
+          ports:
+          - containerPort: 8080
 
 ---
 
@@ -28,5 +31,6 @@ spec:
   ports:
     - name: helloping2
       port: 8080
+      targetPort: 8080
   selector:
     app: helloping2
